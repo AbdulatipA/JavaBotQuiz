@@ -16,7 +16,7 @@ public class App {
     public static void main( String[] args ) {
         SpringApplication.run(App.class, args);
 
-        String token = "7517662529:AAG38sk_epw8tnOAc9pdi3GmDIUygVWnT2Y";
+        String token = "";
         Bot bot = new Bot(token);
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

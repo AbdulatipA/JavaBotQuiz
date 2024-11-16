@@ -37,7 +37,6 @@ public class FileService {
         } catch (IOException e) {
             System.out.println("Файл не найден");
         }
-        System.out.println(lines);
         return lines;
     }
 }

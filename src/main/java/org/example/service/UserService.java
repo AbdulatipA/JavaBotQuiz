@@ -15,7 +15,6 @@ public class UserService {
         User user = new User();
         user.setId(Integer.parseInt(Chatid));
         user.setName(name);
-//        System.out.println(user);
         return user;
     }
 

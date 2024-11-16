@@ -21,7 +21,7 @@ public class DailySchedulerTask {
     @Autowired
     private TableQuestion tableQuestion;
 
-    @Scheduled(cron = "* * 15,20 * * ?")
+    @Scheduled(cron = "20 11 15,20 * * ?")
     public void taskUpdateListQuestion() {
         log.info("Scheduler: Updating list question ");
 
