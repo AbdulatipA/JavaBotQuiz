@@ -12,11 +12,10 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @SpringBootApplication
 @EnableScheduling
 public class App {
-
+    static private final String token = "";
     public static void main( String[] args ) {
         SpringApplication.run(App.class, args);
 
-        String token = "";
         Bot bot = new Bot(token);
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

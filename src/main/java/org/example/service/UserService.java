@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 public class UserService {
 
+    //добавляем Chatid и name в значение свойств объекта User
     public User getUser(String  Chatid, String name){
         User user = new User();
         user.setId(Integer.parseInt(Chatid));
@@ -18,6 +19,8 @@ public class UserService {
         return user;
     }
 
+
+    //сортируем лист объектов User по поинтам
     List<User> sortedByPoint(List<User> usersList) {
         List<User> ListSortedByPoint = usersList.stream()
                 .sorted(Comparator.comparing(User::getPoint))
@@ -27,6 +30,7 @@ public class UserService {
     }
 
 
+    //получаем нужный объект User из листа, по выбранному id
     User getId(List<User> usersList,  int id) {
         User findFirst = usersList.stream()
                 .filter(user -> user.getId() == id)

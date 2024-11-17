@@ -21,9 +21,9 @@ public class DailySchedulerTask {
     @Autowired
     private TableQuestion tableQuestion;
 
-    @Scheduled(cron = "20 11 15,20 * * ?")
+    @Scheduled(cron = "15 18 17,20 * * ?")
     public void taskUpdateListQuestion() {
-        log.info("Scheduler: Updating list question ");
+        log.info("Scheduler: Список вопросов обновлен");
 
         List<String> questionString = fileService.readFileToLine();
         List<Question> list = questionString.stream()
