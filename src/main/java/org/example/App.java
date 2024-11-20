@@ -12,7 +12,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @SpringBootApplication
 @EnableScheduling
 public class App {
-    static private final String token = "7517662529:AAG38sk_epw8tnOAc9pdi3GmDIUygVWnT2Y";
+    static private final String token = "";
     public static void main( String[] args ) {
         SpringApplication.run(App.class, args);
 
