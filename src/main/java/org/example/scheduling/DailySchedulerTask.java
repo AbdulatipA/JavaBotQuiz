@@ -21,7 +21,8 @@ public class DailySchedulerTask {
     @Autowired
     private TableQuestion tableQuestion;
 
-    @Scheduled(cron = "15 18 17,20 * * ?")
+    // @Scheduled(cron = "01 59 17,20 * * ?")
+    @Scheduled(cron = "0 0 * * * *")
     public void taskUpdateListQuestion() {
         log.info("Scheduler: Список вопросов обновлен");
 
@@ -31,6 +32,8 @@ public class DailySchedulerTask {
                 .toList();
 
         tableQuestion.setQuestions(list);
-
+//         System.out.println(this.tableQuestion.getQuestions());
+//         System.out.println("-------------------------");
+//         //log.info(tableQuestion.getQuestions().toString());
     }
 }

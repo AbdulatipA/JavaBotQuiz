@@ -12,7 +12,6 @@ import java.util.List;
 
 @Component
 @Scope("singleton")
-
 @Setter
 @Getter
 public class TableQuestion {
@@ -26,5 +25,10 @@ public class TableQuestion {
 
     public TableQuestion() {
         questions = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "TableQuestion: " + "questions = " + questions;
     }
 }

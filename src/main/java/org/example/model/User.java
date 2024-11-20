@@ -9,11 +9,11 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 public class User {
-    private int id;
+    private long id;
     private String name;
     private int point;
     private int numbQuestion;
-    private double flag;
+    private boolean flag;
 
     @Override
     public String toString() {
