@@ -1,4 +1,4 @@
 1, int x = 10; ++x; System.out.println(x--); x = ?, 11
 2, int x = 15; ++x; System.out.println(x--); x = ?, 15
 3, int x = 8; ++x; System.out.println(x--); x = ?, 8
-4, int x = 66; ++x; System.out.println(++x); x = ?, 67
+4, int x = 66; ++x; System.out.println(++x); x = ?, 670

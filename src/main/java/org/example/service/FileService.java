@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.Question;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -12,15 +13,15 @@ import java.util.List;
 
 @Service
 public class FileService {
+    @Autowired
+    private Question question;
 
     //делаем из строки объек Question
    public Question createQuestionFromString(String line) {
         if(line.isEmpty()) return null;
 
-        Question question = new Question();
-
         String[] split = line.split(",");
-        question.setId(Integer.parseInt(split[0]));
+        question.setId((long)Integer.parseInt(split[0]));
         question.setTitle(split[1]);
         question.setAnswer(split[2]);
 

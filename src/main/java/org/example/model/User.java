@@ -26,7 +26,7 @@ public class User {
     }
 
 
-    public User(int id, String name, int point, int numbQuestion) {
+    public User(Long id, String name, int point, int numbQuestion) {
         this.id = id;
         this.name = name;
         this.point = point;

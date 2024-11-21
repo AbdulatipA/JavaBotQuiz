@@ -1,23 +1,27 @@
 package org.example.service;
 
+import org.example.dataBase.TableUsers;
 import org.example.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+@Component
 public class UserService {
 
+    @Autowired
+    private TableUsers tableUsers;
+
     //добавляем Chatid и name в значение свойств объекта User
-    public User getUser(String  Chatid, String name){
-        User user = new User();
-        user.setId(Integer.parseInt(Chatid));
-        user.setName(name);
-        return user;
-    }
+//    public User getUser(Long  Chatid, String name){
+//        User user = new User();
+//        user.setId(Chatid);
+//        user.setName(name);
+//        return user;
+//    }
 
 
     //сортируем лист объектов User по поинтам
@@ -38,5 +42,21 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return findFirst;
+    }
+
+
+    //проверка пользователя (вытаскиваем объект, чей id совпадает с chatId)
+   public User userCheckForNull(Long chatId, Update update) {
+        User currentUser = tableUsers.getUsers().stream()
+        .filter(user -> user.getId() == chatId)
+        .findFirst()
+        .orElse(null);
+
+        //регистрируем текущего пользователя, если null
+        if(currentUser == null) {
+            User newUser = new User(chatId, update.getMessage().getFrom().getUserName(), 0, 0);
+            tableUsers.getUsers().add(newUser);
+        }
+        return currentUser;
     }
 }

@@ -8,17 +8,16 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ServiceQuestion {
+public class QuestionService {
 
     @Autowired
     private TableQuestion tableQuestion;
 
-    public Question getQuestionById(int questionId){
-        TableQuestion tableQuestion = new TableQuestion();
-        List<Question> questionList = tableQuestion.getQuestions();
 
-        Question question = questionList.stream()
-                .filter(e-> e.getId() == questionId)
+    //сравниваем id каждого вопроса с номеров вопроса, на котором остановился user
+    public Question getQuestionById(Long numbQuestion){
+        Question question = tableQuestion.getQuestions().stream()
+                .filter(e -> e.getId().equals(numbQuestion))
                 .findFirst()
                 .orElse(null);
 

@@ -1,13 +1,15 @@
 package org.example.model;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class Question {
-    private int id;
+    private Long id;
     private String title;
     private String answer;
 
