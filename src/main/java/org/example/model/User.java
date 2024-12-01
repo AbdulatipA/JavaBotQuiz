@@ -12,7 +12,7 @@ public class User {
     private int id;
     private String name;
     private int point;
-    private long numbQuestion;
+    private int numbQuestion;
     private boolean isGameStarted;
 
     @Override
@@ -26,7 +26,7 @@ public class User {
     }
 
 
-    public User(int id, String name, int point, long numbQuestion) {
+    public User(int id, String name, int point, int numbQuestion) {
         this.id = id;
         this.name = name;
         this.point = point;

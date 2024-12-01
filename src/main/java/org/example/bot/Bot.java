@@ -15,13 +15,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Slf4j
 @Component
 public class Bot extends TelegramLongPollingBot {
-    MainService appserver;
+    MainService mainService;
 
     public Bot(@Value("${bot.token}") String botToken,
                @Lazy MainService appserver
                ) {
         super(botToken);
-        this.appserver = appserver;
+        this.mainService = appserver;
     }
 
 
@@ -33,13 +33,13 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         //вносим все вопросы в таблицу вопросов
-        appserver.getTableQuestion().addQuestion();
+        mainService.getTableQuestion().addQuestion();
 
         //текст юзера
         String textMessage = update.getMessage().getText();
 
         //основная логика
-        appserver.handleUpdate(update, textMessage);
+        mainService.processingMessage(update, textMessage);
     }
 
     public void sendMessage(Update update, String text) {

@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.example.bot.Bot;
 import org.example.dataBase.TableQuestion;
 import org.example.dataBase.TableUsers;
@@ -12,14 +13,15 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.List;
-
+@Slf4j
 @Getter
 @Setter
 @Service
 public class MainService {
     User currentUser;
-    Question question;
+    Question currentQuestion;
     int score;
+    boolean switchQuestion;
 
     @Autowired
     private Bot bot;
@@ -30,12 +32,18 @@ public class MainService {
     @Autowired
     private UserService userService;
 
-    public void handleUpdate(Update update, String textMessage){
+
+    public void processingMessage(Update update, String textMessage){
         Long chatId= update.getMessage().getChatId();
         currentUser = userService.userCheckForNull(Integer.parseInt(String.valueOf(chatId)), update);
 
-        // запуск квиза
-        if (!currentUser.isGameStarted() && textMessage.startsWith("Старт")) {
+        if (switchQuestion && textMessage.startsWith("/start")) {
+            bot.sendMessage(update, "Игра завершена, вопросов больше нет");
+            return;
+        }
+
+            // запуск квиза
+        if (!currentUser.isGameStarted() && textMessage.startsWith("/start")) {
             start(update);
             return;
         }
@@ -51,21 +59,21 @@ public class MainService {
             return;
         }
         // если введено что-то другое
-        bot.sendMessage(update, "Сначала начните игру командой 'Старт'.");
+        bot.sendMessage(update, "Введите /start, чтобы начать игру");
     }
 
 
     //старт
     public void start(Update update) {
-        currentUser.setNumbQuestion(1);
-        question = tableQuestion.currentQuestion(1L);
-        currentUser.setGameStarted(true);
-        bot.sendMessage(update, question.getTitle());
+            currentUser.setNumbQuestion(1);
+            currentQuestion = tableQuestion.currentQuestion(1);
+            currentUser.setGameStarted(true);
+            bot.sendMessage(update, currentQuestion.getTitle());
     }
 
 
     public void point(Update update, String textMessage) {
-        if (textMessage.trim().equalsIgnoreCase(question.getAnswer().trim())) {
+        if (textMessage.trim().equalsIgnoreCase(currentQuestion.getAnswer().trim())) {
             currentUser.setPoint(currentUser.getPoint() + 1);
             bot.sendMessage(update, "Правильный ответ, ваш балл: " + currentUser.getPoint());
         } else {
@@ -73,9 +81,10 @@ public class MainService {
             bot.sendMessage(update, "Неверный ответ, ваш балл: " + currentUser.getPoint());
         }
 
-        //увеличиваем текущий вопрос на 1 (у юзера, и след.вопроса)
+        //увеличиваем текущий вопрос на 1 у юзера, и след.вопроса
         currentUser.setNumbQuestion(currentUser.getNumbQuestion() + 1);
-        Question nexQuestion = tableQuestion.currentQuestion(currentUser.getNumbQuestion());
+        Question nexQuestion = currentQuestion = tableQuestion.currentQuestion(currentUser.getNumbQuestion());
+
 
         //проверка на null конце игре
         if (nexQuestion == null) {
@@ -85,6 +94,8 @@ public class MainService {
             currentUser.setGameStarted(false);
             return;
         }
+
+        switchQuestion = true;
         bot.sendMessage(update, nexQuestion.getTitle());
     }
 

@@ -36,9 +36,9 @@ public class TableQuestion {
     }
 
     //сравниваем id каждого вопроса с номеров вопроса, на котором остановился user
-    public Question currentQuestion(Long numbQuestion){
+    public Question currentQuestion(int numbId){
         Question question = questions.stream()
-                .filter(e -> e.getId() == numbQuestion)
+                .filter(e -> e.getId() == numbId)
                 .findFirst()
                 .orElse(null);
 

@@ -1,7 +1,6 @@
 package org.example.service;
 
 import org.example.model.Question;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
