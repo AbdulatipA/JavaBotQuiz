@@ -17,7 +17,7 @@ public class TableUsers {
     private List<User> users;
 
     //Добавляем объект user в лист users
-    void addUser(User user) {
+    public void addUser(User user) {
         users.add(user);
     }
 

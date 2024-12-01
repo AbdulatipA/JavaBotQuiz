@@ -1,26 +1,24 @@
 package org.example.service;
 
-import org.example.dataBase.TableQuestion;
 import org.example.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class QuestionService {
 
     @Autowired
-    private TableQuestion tableQuestion;
+    private FileService fileService;
 
 
-    //сравниваем id каждого вопроса с номеров вопроса, на котором остановился user
-    public Question getQuestionById(Long numbQuestion){
-        Question question = tableQuestion.getQuestions().stream()
-                .filter(e -> e.getId().equals(numbQuestion))
-                .findFirst()
-                .orElse(null);
+    public List<Question> questionList(){
+        List<String> questionString = fileService.readFileToLine();
+        List<Question> list = questionString.stream()
+                .map(line -> fileService.createQuestionFromString(line))
+                .toList();
 
-        return question;
+        return list;
     }
 }

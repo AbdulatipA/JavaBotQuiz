@@ -13,15 +13,15 @@ import java.util.List;
 
 @Service
 public class FileService {
-    @Autowired
-    private Question question;
+
 
     //делаем из строки объек Question
    public Question createQuestionFromString(String line) {
+       Question question = new Question();
         if(line.isEmpty()) return null;
 
         String[] split = line.split(",");
-        question.setId((long)Integer.parseInt(split[0]));
+        question.setId(Integer.parseInt(split[0]));
         question.setTitle(split[1]);
         question.setAnswer(split[2]);
 

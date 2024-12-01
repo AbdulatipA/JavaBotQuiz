@@ -3,17 +3,17 @@ package org.example.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class User {
-    private long id;
+    private int id;
     private String name;
     private int point;
-    private int numbQuestion;
-    private boolean flag;
+    private long numbQuestion;
+    private boolean isGameStarted;
 
     @Override
     public String toString() {
@@ -22,11 +22,11 @@ public class User {
                 "name: " + name + "\n" +
                 "point: " + point + "\n" +
                 "numbQuestion: " + numbQuestion + "\n" +
-                "flag: " + flag;
+                "isGameStarted: " + isGameStarted;
     }
 
 
-    public User(Long id, String name, int point, int numbQuestion) {
+    public User(int id, String name, int point, long numbQuestion) {
         this.id = id;
         this.name = name;
         this.point = point;
