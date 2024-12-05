@@ -15,7 +15,7 @@ public class FileService {
 
 
     //делаем из строки объек Question
-   public Question createQuestionFromString(String line) {
+   private Question createQuestionFromString(String line) {
        Question question = new Question();
         if(line.isEmpty()) return null;
 
@@ -28,7 +28,7 @@ public class FileService {
     }
 
     //добавляем файл с вопросами в лист
-    public List<String> readFileToLine(){
+    private List<String> readFileToLine(){
         File file = new File("src/main/resources/questions.csv");
         List<String> lines = new ArrayList<>();
 
@@ -38,5 +38,15 @@ public class FileService {
             System.out.println("Файл не найден");
         }
         return lines;
+    }
+
+
+    public List<Question> questionList(){
+        List<String> questionString = readFileToLine();
+        List<Question> list = questionString.stream()
+                .map(line -> createQuestionFromString(line))
+                .toList();
+
+        return list;
     }
 }

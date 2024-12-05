@@ -2,7 +2,7 @@ package org.example.bot;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.service.*;
+import org.example.menu.MainService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,7 @@ public class Bot extends TelegramLongPollingBot {
     MainService mainService;
 
     public Bot(@Value("${bot.token}") String botToken,
-               @Lazy MainService appserver
-               ) {
+               @Lazy MainService appserver) {
         super(botToken);
         this.mainService = appserver;
     }
@@ -32,13 +31,11 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        //вносим все вопросы в таблицу вопросов
-        mainService.getTableQuestion().addQuestion();
 
-        //текст юзера
+        // текст юзера
         String textMessage = update.getMessage().getText();
 
-        //основная логика
+        // основная логика
         mainService.processingMessage(update, textMessage);
     }
 

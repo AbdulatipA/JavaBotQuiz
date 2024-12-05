@@ -22,7 +22,7 @@ public class UserService {
     private TableUsers tableUsers;
 
 
-    //проверка пользователя (вытаскиваем объект, чей id совпадает с chatId)
+   // проверка пользователя (вытаскиваем объект, чей id совпадает с chatId)
    public User userCheckForNull(int chatId, Update update) {
         User currentUser = tableUsers.getUsers().stream()
         .filter(user -> user.getId() == chatId)
@@ -32,7 +32,7 @@ public class UserService {
 
        String userName = getUserNameSafe(update);
 
-        //регистрируем текущего пользователя, если null
+       // регистрируем текущего пользователя, если null
        if(currentUser == null) {
            User newUser = new User(chatId, userName, 0, 0);
            tableUsers.getUsers().add(newUser);
@@ -42,7 +42,7 @@ public class UserService {
         return currentUser;
     }
 
-    //проверяем имя пользлвателя на null
+    // проверяем имя пользлвателя на null
     private String getUserNameSafe(Update update) {
         if (update == null || update.getMessage() == null || update.getMessage().getFrom() == null) {
             return "Unknown";
